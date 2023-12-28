@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -13,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/ui/shared/Loader";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 
 const SignupForm = () => {
@@ -32,23 +34,22 @@ const SignupForm = () => {
     })
    
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof SignupValidation>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values)
+    async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    //3. Create a new user(takes time hence use async function)
+         const newUser = await createUserAccount(values);
+
+         console.log(newUser);
     }
 
   return (
-    //be careful om how u align the characters under the Create accunt cause it can create an error on small devices
-    
+    //be careful om how u align the characters under the Create account cause it can create an error on small devices
+
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         < img src="/assets/images/logo.svg" alt="logo" />
 
-        <h2 className="h3-bold md:h3-bold pt-6 sm:pt-12">Create a new account</h2>
-        <p className="text-light-3 small-medium md:base-regular">
-          Ready to buzz🐝 into the Hive? Unlock<br/>your 
-          sweet spot🍯and connect with <br/>the swarm!💯</p>
+        <h2 className="h2-bold md:h3-bold pt-6 sm:pt-12">Create a new account</h2>
+        <p className="text-light-3 small-medium md:base-regular">To use Snapgram, please enter your details. </p>
       
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
         <FormField
@@ -110,6 +111,13 @@ const SignupForm = () => {
             </div>
           ): "Sign Up"}
         </Button>
+
+        <p className="text-small-regular text-light-2 text-center
+        mt-2">
+          Already have an account?
+          <Link to="/sign-in" className="text-primary-500
+          text-small-semibold ml-1">Log In</Link>
+        </p>
       </form>
       </div>
     </Form>
