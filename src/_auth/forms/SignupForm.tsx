@@ -39,6 +39,8 @@ const SignupForm = () => {
     }
 
   return (
+    //be careful om how u align the characters under the Create accunt cause it can create an error on small devices
+    
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         < img src="/assets/images/logo.svg" alt="logo" />
