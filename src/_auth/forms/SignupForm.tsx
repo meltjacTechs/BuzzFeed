@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 
 import { useToast } from "@/components/ui/use-toast";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
@@ -43,11 +36,8 @@ const SignupForm = () => {
          const newUser = await createUserAccount(values);
 
          if(!newUser) {
-          return toast ({
-            title: ' Sign up failed. Please check your internet connection. '
-          })
+          return toast ({ title: ' Sign up failed. Please try again. '})
          }
-
         //  const session = await signInAccount()
     }
 
